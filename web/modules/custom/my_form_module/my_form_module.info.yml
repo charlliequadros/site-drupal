@@ -1,6 +1,6 @@
-name: Welcome Module
+name: My Form Module
 type: module
-description: 'First Custom Drupal 9 Module.'
+description: 'My form module'
 package: Custom
 version: 1.0
 core_version_requirement: ^9 || ^10

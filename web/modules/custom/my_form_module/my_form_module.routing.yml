@@ -1,0 +1,7 @@
+my_form_module.form:
+  path: '/myform/page'
+  defaults:
+    _form: '\Drupal\my_form_module\Form\MyFormController'
+    _title: 'Contact'
+  requirements: 
+    _permission: 'access content'
