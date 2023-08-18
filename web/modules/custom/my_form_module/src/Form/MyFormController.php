@@ -61,25 +61,26 @@ class MyFormController extends FormBase{
 
 
 
-    private function validatePhone(array &$form, FormStateInterface $form_state){
+    private function validatePhone(array &$form, FormStateInterface $form_state) {
 
         if ($this->validatePhoneNumberFormat($form_state->getValue('phone')) === false) {
             $form_state->setErrorByName('phone', $this->t('The phone is in the wrong format'));
         }
     }
 
-    private function validateName(array &$form, FormStateInterface $form_state){
+    private function validateName(array &$form, FormStateInterface $form_state) {
 
         if (strlen($form_state->getValue('name')) < 3) {
             $form_state->setErrorByName('name', $this->t('The name field must be longer than 3 characters'));
         }
     }
 
-    private function validatePhoneNumberFormat(string $phone){
+    private function validatePhoneNumberFormat(string $phone) {
         $regexPhone = '/^\d{10,}$/';
         if (preg_match($regexPhone, $phone)) {
             return true;
-        }else{
+        }
+        else {
             return false;
         }
     }
