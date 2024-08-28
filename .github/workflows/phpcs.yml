@@ -14,10 +14,11 @@ jobs:
           composer require --dev drupal/coder
       - name: Check coding standards
         run: |
-          vendor/bin/phpcs || true
-      - name: Format Code
+          vendor/bin/phpcs --ignore=vendor/,composer.json,composer.lock || true
+
+      - name: Fix coding standards (PHP Code Beautifier and Fixer)
         run: |
-          vendor/bin/phpcbf || true
+          vendor/bin/phpcbf --ignore=vendor/,composer.json,composer.lock || true
       - name: Check if there are changes
         run: |
           if git diff --exit-code; then
