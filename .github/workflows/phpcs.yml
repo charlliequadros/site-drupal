@@ -15,4 +15,4 @@ jobs:
       - name: Check coding standards
         run: vendor/bin/phpcs
       - name: Format Code
-        run: vendor/bin/phpcbf --standard=Drupal --ignore=vendor/ .
+        run: vendor/bin/phpcbf
