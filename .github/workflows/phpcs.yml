@@ -25,15 +25,14 @@ jobs:
           if git diff --name-only | grep -vE '^(composer\.json|composer\.lock)'; then
             echo "Formatting changes detected. Committing changes.";
 
-            # Adiciona e comita as alterações
-            # git config --global user.email "github-actions@github.com"
-            # git config --global user.name "GitHub Actions"
-            # git add -A
-            # git commit -m "Fix code formatting"
+            # Configurar Git com o GITHUB_TOKEN
+            git config --global user.email "github-actions@github.com"
+            git config --global user.name "GitHub Actions"
+            git add -A
+            git commit -m "Fix code formatting"
             
-            # Empurra as alterações para o branch
-            # git push
-            git diff
+            # Empurra as alterações usando o GITHUB_TOKEN
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           else
             echo "No formatting changes needed";
           fi
