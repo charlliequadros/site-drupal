@@ -29,10 +29,10 @@ jobs:
             git config --global user.email "github-actions@github.com"
             git config --global user.name "GitHub Actions"
             git add -A
-            git commit -m "Fix code formatting"
-            
-            # Empurra as alterações usando o GITHUB_TOKEN
-            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+            git checkout "${GITHUB_REF:11}"
+            git commit -am "Automated report"
+            git push
           else
             echo "No formatting changes needed";
           fi
