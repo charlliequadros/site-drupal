@@ -5,53 +5,64 @@ namespace Drupal\movie_directory\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
+/**
+ *
+ */
 class MovieApi extends FormBase {
 
-    const MOVIE_API_CONFIG_PAGE = 'movie_api_config_page_value';
-    public function getFormId(){
-        return 'movie_api_config_page';
-    }
+  const MOVIE_API_CONFIG_PAGE = 'movie_api_config_page_value';
 
-    public function buildForm (array $form, FormStateInterface $form_state){
-        $form = [];
+  /**
+   *
+   */
+  public function getFormId() {
+    return 'movie_api_config_page';
+  }
 
-        $values =  \Drupal::state()->get(self::MOVIE_API_CONFIG_PAGE);
+  /**
+   *
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) {
+    $form = [];
 
-        $form['api_base_url'] = [
-            '#type' => 'textfield',
-            '#title' => $this->t('API Base URL'),
-            '#description' => $this->t('This is the API Base URL'),
-            '#required' => true,
-            '#default_value' => $values['api_base_url'],
-        ];
+    $values = \Drupal::state()->get(self::MOVIE_API_CONFIG_PAGE);
 
-        $form['api_key'] = [
-            '#type' => 'textfield',
-            '#title' => $this->t('API Key (v3 auth)'),
-            '#description' => $this->t('This is the api key that will be used to access the API.'),
-            '#required' => true,
-            '#default_value' =>  $values['api_key'],
-        ];
+    $form['api_base_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('API Base URL'),
+      '#description' => $this->t('This is the API Base URL'),
+      '#required' => TRUE,
+      '#default_value' => $values['api_base_url'],
+    ];
 
-        $form['actions']['#type'] = 'actions';
-        $form['actions']['submit'] = [
-            '#type' => 'submit',
-            '#value' => $this->t('Save'),
-            '#button_type' => 'primary'
-        ];
-        
+    $form['api_key'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('API Key (v3 auth)'),
+      '#description' => $this->t('This is the api key that will be used to access the API.'),
+      '#required' => TRUE,
+      '#default_value' => $values['api_key'],
+    ];
 
-        return $form;
-    }
+    $form['actions']['#type'] = 'actions';
+    $form['actions']['submit'] = [
+      '#type' => 'submit',
+      '#value' => $this->t('Save'),
+      '#button_type' => 'primary',
+    ];
 
-    public function submitForm(array &$form, FormStateInterface $form_state){
-        $submitted_values = $form_state->cleanValues()->getValues();
-        
-        \Drupal::state()->set(self::MOVIE_API_CONFIG_PAGE, $submitted_values);
+    return $form;
+  }
 
-        $messenger = \Drupal::service('messenger');
-        $messenger->addMessage($this->t('Your new configuration has been saved'));
-    }
+  /**
+   *
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $submitted_values = $form_state->cleanValues()->getValues();
+
+    \Drupal::state()->set(self::MOVIE_API_CONFIG_PAGE, $submitted_values);
+
+    $messenger = \Drupal::service('messenger');
+    $messenger->addMessage($this->t('Your new configuration has been saved'));
+  }
 
 }
-
