@@ -16,7 +16,8 @@ jobs:
         run: |
           vendor/bin/phpcs || true
       - name: Format Code
-        run: vendor/bin/phpcbf
+        run: |
+          vendor/bin/phpcbf || true
       - name: Check if there are changes
         run: |
           if git diff --exit-code; then
