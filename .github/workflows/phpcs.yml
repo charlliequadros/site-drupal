@@ -3,41 +3,9 @@ name: Code Formatting Check
 on: [push, pull_request]
 
 jobs:
-  phpcs:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.1'
-
-      - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Install PHP_CodeSniffer and Drupal Coder
-        run: |
-          composer config --global allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
-          composer global require drupal/coder
-          phpcs --config-set installed_paths $HOME/.composer/vendor/drupal/coder/coder_sniffer
-          phpcs --config-set default_standard Drupal
-
-      - name: Run PHP_CodeSniffer
-        run: |
-          phpcs --standard=Drupal --ignore=vendor/ .
-
-      - name: Format Code
-        run: |
-          phpcbf --standard=Drupal --ignore=vendor/ .
-
-      - name: Check if there are changes
-        run: |
-          if git diff --exit-code; then
-            echo "No formatting changes needed";
-          else
-            echo "Formatting changes detected. Please commit the changes.";
-            exit 1;
-          fi
+  phpcs-drupal:
+      name: Drupal coding standards
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: guix77/phpcs-drupal-action@php8.3
