@@ -16,6 +16,9 @@ jobs:
           php-version: '8.1'
 
       - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Install PHP_CodeSniffer and Drupal Coder
         run: |
           composer config --global allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
           composer global require drupal/coder
