@@ -17,3 +17,11 @@ jobs:
           vendor/bin/phpcs || true
       - name: Format Code
         run: vendor/bin/phpcbf
+      - name: Check if there are changes
+        run: |
+          if git diff --exit-code; then
+            echo "No formatting changes needed";
+          else
+            echo "Formatting changes detected. Please commit the changes.";
+            exit 1;
+          fi
