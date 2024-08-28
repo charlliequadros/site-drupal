@@ -14,3 +14,5 @@ jobs:
           composer require --dev drupal/coder
       - name: Check coding standards
         run: vendor/bin/phpcs
+      - name: Format Code
+        run: vendor/bin/phpcbf --standard=Drupal --ignore=vendor/ .
