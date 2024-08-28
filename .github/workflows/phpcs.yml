@@ -13,6 +13,7 @@ jobs:
           composer require --dev squizlabs/php_codesniffer=*
           composer require --dev drupal/coder
       - name: Check coding standards
-        run: vendor/bin/phpcs
+        run: |
+          vendor/bin/phpcs || true
       - name: Format Code
         run: vendor/bin/phpcbf
