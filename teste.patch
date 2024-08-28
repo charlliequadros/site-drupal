@@ -1,0 +1,145 @@
+Skip to content
+Navigation Menu
+
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+2
+Insights
+Code Formatting Check
+Update phpcs.yml #22
+phpcs
+succeeded 3 minutes ago in 20s
+0s
+0s
+13s
+0s
+0s
+0s
++   *
++   */
++  public function getImageUrl($image_path) {
++    return 'https://image.tmdb.org/t/p/w500/' . $image_path;
++  }
+ 
+-}
+\ No newline at end of file
++}
+diff --git a/web/modules/custom/my_form_module/my_form_module.info.yml b/web/modules/custom/my_form_module/my_form_module.info.yml
+index b492dbd..b2e0442 100644
+--- a/web/modules/custom/my_form_module/my_form_module.info.yml
++++ b/web/modules/custom/my_form_module/my_form_module.info.yml
+@@ -3,4 +3,4 @@ type: module
+ description: 'My form module'
+ package: Custom
+ version: 1.0
+-core_version_requirement: ^9 || ^10
+\ No newline at end of file
++core_version_requirement: ^9 || ^10
+diff --git a/web/modules/custom/my_form_module/my_form_module.routing.yml b/web/modules/custom/my_form_module/my_form_module.routing.yml
+index 5b33de8..d437aa9 100644
+--- a/web/modules/custom/my_form_module/my_form_module.routing.yml
++++ b/web/modules/custom/my_form_module/my_form_module.routing.yml
+@@ -4,4 +4,4 @@ my_form_module.form:
+     _form: '\Drupal\my_form_module\Form\MyFormController'
+     _title: 'Contact'
+   requirements: 
+-    _permission: 'access content'
+\ No newline at end of file
++    _permission: 'access content'
+diff --git a/web/modules/custom/my_form_module/src/Form/MyFormController.php b/web/modules/custom/my_form_module/src/Form/MyFormController.php
+index 0e02177..71e349d 100644
+--- a/web/modules/custom/my_form_module/src/Form/MyFormController.php
++++ b/web/modules/custom/my_form_module/src/Form/MyFormController.php
+@@ -1,87 +1,107 @@
+ <?php
++
+ namespace Drupal\my_form_module\Form;
+ 
+ use Drupal\Core\Form\FormBase;
+ use Drupal\Core\Form\FormStateInterface;
+ 
+-class MyFormController extends FormBase{
+-  
+-   
+-    public function getFormId() {
+-        return 'example_form';
+-    }
++/**
++ *
++ */
++class MyFormController extends FormBase {
+ 
+-  
+-    public function buildForm(array $form, FormStateInterface $form_state) {
+-        $form['name'] = [
+-            '#type' => 'textfield',
+-            '#title' => $this->t('Name'),
+-            '#required' => true,
+-        ];
+-        $form['email'] = [
+-            '#type' => 'email',
+-            '#title' => $this->t('Email'),
+-            '#required' => true,
+-        ];
+-       
+-        $form['phone'] = [
+-            '#type' => 'tel',
+-            '#title' => $this->t('Phone'),
+-            '#required' => true,
+-        ];
++  /**
++   *
++   */
++  public function getFormId() {
++    return 'example_form';
++  }
+ 
+-         $form['message'] = [
+-            '#type' => 'textarea',
+-            '#title' => $this->t('Message'),
+-            '#required' => true,
+-            '#maxlength' => 250,
+-        ];
+-        $form['actions']['#type'] = 'actions';
+-        $form['actions']['submit'] = [
+-            '#type' => 'submit',
+-            '#value' => $this->t('Save'),
+-            '#button_type' => 'primary',
+-        ];
+-        return $form;
+-    }
++  /**
++   *
++   */
++  public function buildForm(array $form, FormStateInterface $form_state) {
++    $form['name'] = [
++      '#type' => 'textfield',
++      '#title' => $this->t('Name'),
++      '#required' => TRUE,
++    ];
++    $form['email'] = [
++      '#type' => 'email',
++      '#title' => $this->t('Email'),
++      '#required' => TRUE,
++    ];
+ 
+-  
+-    public function validateForm(array &$form, FormStateInterface $form_state) {
+-        $this->validatePhone($form, $form_state);
+-        $this->validateName($form,$form_state);
+-    }
++    $form['phone'] = [
++      '#type' => 'tel',
++      '#title' => $this->t('Phone'),
++      '#required' => TRUE,
++    ];
+ 
+-  
+-    public function submitForm(array &$form, FormStateInterface $form_state) {
+-        $this->messenger()->addStatus($this->t('Your name is @name', ['@name' => $form_state->getValue('name')]));
+-        $this->messenger()->addStatus($this->t('Your email is @email', ['@email' => $form_state->getValue('email')]));
+
