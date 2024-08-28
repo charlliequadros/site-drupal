@@ -20,7 +20,7 @@ class MyFormController extends FormBase {
   /**
    *
    */
-  public function buildForm(array $form, FormStateInterface $form_state){
+  public function buildForm(array $form, FormStateInterface $form_state) {
     $form['name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Name'),
