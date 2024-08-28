@@ -26,13 +26,14 @@ jobs:
             echo "Formatting changes detected. Committing changes.";
 
             # Adiciona e comita as alterações
-            git config --global user.email "github-actions@github.com"
-            git config --global user.name "GitHub Actions"
-            git add -A
-            git commit -m "Fix code formatting"
+            # git config --global user.email "github-actions@github.com"
+            # git config --global user.name "GitHub Actions"
+            # git add -A
+            # git commit -m "Fix code formatting"
             
             # Empurra as alterações para o branch
-            git push
+            # git push
+            git diff
           else
             echo "No formatting changes needed";
           fi
