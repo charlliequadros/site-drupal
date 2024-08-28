@@ -14,16 +14,17 @@ jobs:
           composer require --dev drupal/coder
       - name: Check coding standards
         run: |
-          vendor/bin/phpcs --ignore=vendor/,composer.json,composer.lock || true
+          vendor/bin/phpcs || true
 
       - name: Fix coding standards (PHP Code Beautifier and Fixer)
         run: |
-          vendor/bin/phpcbf --ignore=vendor/,composer.json,composer.lock || true
+          vendor/bin/phpcbf || true
       - name: Check if there are changes
         run: |
-          if git diff --exit-code; then
-            echo "No formatting changes needed";
-          else
+          # Verifica se há mudanças, excluindo os arquivos composer.json e composer.lock
+          if git diff --name-only | grep -vE '^(composer\.json|composer\.lock)'; then
             echo "Formatting changes detected. Please commit the changes.";
             exit 1;
+          else
+            echo "No formatting changes needed";
           fi
