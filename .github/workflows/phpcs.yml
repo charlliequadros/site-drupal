@@ -16,10 +16,8 @@ jobs:
           php-version: '8.1'
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
-
-      - name: Install PHP_CodeSniffer and Drupal Coder
         run: |
+          composer config --global allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
           composer global require drupal/coder
           phpcs --config-set installed_paths $HOME/.composer/vendor/drupal/coder/coder_sniffer
           phpcs --config-set default_standard Drupal
@@ -27,7 +25,7 @@ jobs:
       - name: Run PHP_CodeSniffer
         run: |
           phpcs --standard=Drupal --ignore=vendor/ .
-          
+
       - name: Format Code
         run: |
           phpcbf --standard=Drupal --ignore=vendor/ .
